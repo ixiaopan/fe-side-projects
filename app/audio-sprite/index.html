@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Sprite Demo</title>
+</head>
+<body>
+  <div>
+    <button id="play">play</button>
+    <button id="pause">pause</button>
+    <button id="mute">mute</button>
+
+    <p>选择单独播放的sprite name</p>
+    <select name="sprite" id="sprite">
+      <option value="s1">s1</option>
+      <option value="s2">s2</option>
+      <option value="t1">t1</option>
+      <option value="t2">t2</option>
+    </select>
+  </div>
+  <div id="info"></div>
+
+  <script src="./audio.js"></script>
+  <script>
+    var playBtn = document.querySelector('#play')
+    var pauseBtn = document.querySelector('#pause')
+    var muteBtn = document.querySelector('#mute')
+    var spriteSelect = document.querySelector('#sprite')
+
+    var manager = new AudioManager()
+
+    var paused = false, m = true, playing = false
+
+    playBtn.addEventListener('click', function () {
+      if (playing) return
+
+      var startTime = Date.now()
+
+      paused = false
+      playing = true
+
+      const step = () => {
+        const elapsed = Date.now() - startTime
+        manager.globalTime = elapsed
+        manager.play()
+
+        if (!paused && elapsed <= 11 * 1000) {
+          requestAnimationFrame(step)
+        } else {
+          playing = false
+        }
+      }
+
+      requestAnimationFrame(step)
+    })
+    pauseBtn.addEventListener('click', function () {
+      manager.pause()
+      paused = true
+    })
+
+    muteBtn.addEventListener('click', function () {
+      manager.mute(m)
+      m = !m
+    })
+    spriteSelect.addEventListener('change', function (e) {
+      manager.playSprite(e.target.value)
+    })
+
+    var infoBoard = document.querySelector('#info')
+    function createInfo(type, m){
+      const p = document.createElement('p')
+      p.innerHTML = type + ': ' + JSON.stringify(m)
+      infoBoard.appendChild(p)
+    }
+    manager.on('source:load', function(data) {
+      createInfo('source:load', data)
+    })
+    manager.on('source:loadError', function(e) {
+      createInfo('source:loadError', e)
+    })
+    manager.on('source:startLoad', function(e) {
+      createInfo('source:startLoad', e)
+    })
+    manager.on('source:playError', function(m) {
+      createInfo('source:startLoad', m)
+    })
+    manager.on('source:playEnd', function(m) {
+      createInfo('source:playEnd', m)
+    })
+
+    manager.addSource([
+      {
+        src: 'https://howlerjs.com/assets/howler.js/examples/player/audio/rave_digger.webm',
+        sprite: {
+          s1: [0, 0, 1500],
+          s2: [3000, 8000, 5000]
+        }
+      },
+      {
+        src: 'https://howlerjs.com/assets/howler.js/tests/audio/sound2.webm',
+        sprite: {
+          t1: [1500, 0, 1500],
+          t2: [8000, 1800, 3000]
+        }
+      }
+    ])
+  </script>
+</body>
+</html>
