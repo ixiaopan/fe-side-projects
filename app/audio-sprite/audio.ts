@@ -3,11 +3,6 @@
  * @refer https://github.com/goldfire/howler.js/blob/master/src/howler.core.js
  */
 
-function noop() {}
-
-function isString(val: unknown): boolean {
-  return typeof val == 'string'
-}
 
 let loadingCache: { [key: string]: boolean } = {}
 
@@ -32,7 +27,6 @@ class AudioManager {
     this.ctx = new AudioContext()
 
     this.masterGain = this.ctx.createGain()
-    // this.masterGain!.gain.value = 1
     this.masterGain!.connect(this.ctx!.destination)
   }
 
@@ -45,20 +39,32 @@ class AudioManager {
     })
   }
   play() {
-    this._sources.forEach((source: AudioSource) => {
-      Object.keys(source._sprite).forEach((spriteName) => {
-        const idOrName =
-          this.spriteMap[spriteName] && source.playing(this.spriteMap[spriteName])
-            ? this.spriteMap[spriteName]
-            : spriteName
-
-        const soundId = source.play(idOrName)
-
-        if (soundId) {
-          this.spriteMap[spriteName] = soundId
+    this._sources.forEach((source) => {
+      Object.keys(source._sprite).forEach(spriteName => {
+        const timeList = source._sprite[spriteName]
+        if (timeList[0] <= this.globalTime && this.globalTime < timeList[0] + timeList[2]) {
+          source.play(spriteName)
+        } else {
+          source.pause(spriteName)
         }
       })
     })
+
+
+    // this._sources.forEach((source: AudioSource) => {
+    //   Object.keys(source._sprite).forEach((spriteName) => {
+    //     const idOrName =
+    //       this.spriteMap[spriteName] && source.playing(this.spriteMap[spriteName])
+    //         ? this.spriteMap[spriteName]
+    //         : spriteName
+
+    //     const soundId = source.play(idOrName)
+
+    //     if (soundId) {
+    //       this.spriteMap[spriteName] = soundId
+    //     }
+    //   })
+    // })
   }
   playSprite(name: string) {
     const source = this._sources.find(s => Object.keys(s._sprite).includes(name))
@@ -71,7 +77,18 @@ class AudioManager {
 
     if (!sourceOptions.src) return
 
-    const ins = new AudioSource({
+    // method 1
+    // const ins = new AudioSource({
+    //   ...sourceOptions,
+    //   manager: this,
+    // })
+
+    // method 2: single source
+    new AudioSource({
+      ...sourceOptions,
+      manager: this,
+    })
+    const ins = new SingleSource({
       ...sourceOptions,
       manager: this,
     })
@@ -393,5 +410,46 @@ class Sound {
 
     this._paused = true
     this._ended = true
+  }
+}
+
+
+class SingleSource {
+  playing = false
+
+  audioNode
+
+  _src: string
+  _sprite: ISprite
+
+  playingName
+  constructor(options: IAudioSourceOption) {
+    this._src = options.src
+    this._sprite = options.sprite || {}
+
+    this.load()
+  }
+  load() {
+    this.audioNode = document.createElement('audio')
+    this.audioNode.src = this._src
+    document.body.appendChild(this.audioNode)
+  }
+  pause(name) {
+    if (!this.playing || this.playingName != name) return
+
+    this.audioNode.pause()
+
+    this.playing = false
+  }
+  play(name) {
+    if (this.playing) return
+
+    const timeList = this._sprite[name]
+    this.audioNode.currentTime = timeList[1] / 1000
+
+    this.audioNode.play()
+    this.playing = true
+
+    this.playingName = name
   }
 }
