@@ -1,0 +1,89 @@
+body {
+  background: #efefef;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.g-text-link {
+  color: #1890ff;
+  cursor: pointer;
+
+  &:hover {
+    color: #40a9ff;
+  }
+}
+
+// 周报 MD 样式优化
+.md-editor {
+  height: 60vh;
+  width: 120%;
+
+  &.md-editor-previewOnly {
+    height: auto;
+    width: 100%;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  .md-editor-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #aaa;
+    border: none;
+
+    .md-editor-footer-label {
+      display: none;
+    }
+
+    .md-editor-footer-right {
+      display: none;
+    }
+  }
+
+  .md-editor-content {
+    padding: 3px;
+
+    .md-editor-preview-wrapper {
+      &::-webkit-scrollbar {
+        width: 5px;
+        display: block !important;
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(30, 29, 53, 0.11);
+        border-radius: 60px;
+      }
+    }
+  }
+
+  .md-editor-preview {
+    padding: 10px;
+
+    h1:first-of-type,
+    h2:first-of-type,
+    h3:first-of-type,
+    h4:first-of-type,
+    h5:first-of-type,
+    h6:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
+#md-editor-v3-textarea {
+  overflow-y: auto;
+  border-right: 1px solid #f2f2f2;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

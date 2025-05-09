@@ -1,0 +1,98 @@
+{
+  "name": "fe-portal",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:base": "pnpm -F @fe-portal/base dev:mock:db",
+    "dev:basement": "pnpm -F @fe-portal/basement dev:mock:db",
+    "dev:npm-platform": "pnpm -F @fe-portal/npm-platform dev:mock:db",
+    "dev:report": "pnpm -F @fe-portal/report dev:mock:db",
+    "dev:mockme": "pnpm -F @fe-portal/mockme dev:mock:db",
+    "build:prod:all": "rm -rf dist && sh scripts/build.sh",
+    "build:shared": "pnpm -F @fe-portal/shared build",
+    "build:dev:base": "pnpm -F @fe-portal/base build:dev",
+    "build:prod:base": "pnpm -F @fe-portal/base build:prod",
+    "build:dev:basement": "pnpm -F @fe-portal/basement build:dev",
+    "build:prod:basement": "pnpm -F @fe-portal/basement build:prod",
+    "build:dev:npm-platform": "pnpm -F @fe-portal/npm-platform build:dev",
+    "build:prod:npm-platform": "pnpm -F @fe-portal/npm-platform build:prod",
+    "build:dev:mockme": "pnpm -F @fe-portal/mockme build:dev",
+    "build:prod:mockme": "pnpm -F @fe-portal/mockme build:prod",
+    "create": "node scripts/cli",
+    "docker": "docker-compose up",
+    "commit": "git-cz",
+    "lint:eslint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --max-warnings 0",
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "@micro-zoe/micro-app": "1.0.0-beta.5",
+    "ant-design-vue": "^3.2.10",
+    "axios": "^0.21.4",
+    "clipboard": "^2.0.11",
+    "dayjs": "^1.11.7",
+    "eventemitter3": "^3.1.0",
+    "pinia": "^2.0.33",
+    "vue": "^3.2.20",
+    "vue-router": "^4.0.12",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.0.2",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@types/mockjs": "^1.0.6",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.8.1",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue-jsx": "^1.2.0",
+    "@vue/compiler-sfc": "^3.2.20",
+    "@vue/eslint-config-typescript": "^9.0.0",
+    "autoprefixer": "^10.3.7",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "detect-port": "^1.5.1",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "execa": "^7.1.1",
+    "fs-extra": "^11.1.1",
+    "husky": "^7.0.4",
+    "inquirer": "^8.2.4",
+    "less": "^4.1.2",
+    "lint-staged": "^12.1.7",
+    "mockjs": "^1.1.0",
+    "postcss": "^8.3.11",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "rollup-plugin-visualizer": "^5.6.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.4.4",
+    "unplugin-vue-components": "^0.17.11",
+    "vite": "^2.6.12",
+    "vite-plugin-html": "^2.1.1",
+    "vite-plugin-mock": "^2.9.6",
+    "vitest": "^0.28.5",
+    "vue-tsc": "^0.30.1"
+  },
+  "engines": {
+    "node": ">=17.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "package.json": [
+      "prettier --write"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@fe-portal/mockme",
+  "version": "0.0.0",
+  "description": "API Mock",
+  "devPort": 3008,
+  "publicPath": "/child/mockme/",
+  "outDir": "../../dist/child/mockme",
+  "scripts": {
+    "dev": "vite --host 3008",
+    "dev:mock": "vite --host --mode mock",
+    "dev:mock:db": "vite --host --mode mockdb",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production"
+  },
+  "dependencies": {
+    "jsoneditor": "^9.10.2",
+    "@fe-portal/shared": "workspace:^1.0.0"
+  }
+}

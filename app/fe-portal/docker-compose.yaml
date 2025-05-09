@@ -1,0 +1,9 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fe-portal-webserver
+    container_name: fe-portal-webserver
+    ports:
+      - 80:80

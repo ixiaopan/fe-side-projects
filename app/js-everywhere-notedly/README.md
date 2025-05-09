@@ -1,1 +1,0 @@
-# 《Javascript Everywhere》demo

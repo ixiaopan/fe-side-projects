@@ -1,0 +1,19 @@
+{
+  "name": "@fe-portal/base",
+  "version": "0.0.0",
+  "description": "FE Portal",
+  "devPort": 3000,
+  "publicPath": "/",
+  "outDir": "../../dist/base",
+  "scripts": {
+    "dev": "vite --host 3000",
+    "dev:mock": "vite --host --mode mock",
+    "dev:mock:db": "vite --host --mode mockdb",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production"
+  },
+  "dependencies": {
+    "@fe-portal/shared": "workspace:*",
+    "@vitejs/plugin-vue-jsx": "^1.2.0"
+  }
+}

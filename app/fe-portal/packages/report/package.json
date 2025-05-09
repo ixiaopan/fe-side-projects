@@ -1,0 +1,21 @@
+{
+  "name": "@fe-portal/report",
+  "version": "0.0.0",
+  "description": "周报系统",
+  "devPort": 3002,
+  "publicPath": "/child/report/",
+  "outDir": "../../dist/child/report",
+  "scripts": {
+    "dev": "vite --host 3002",
+    "dev:mock": "vite --host --mode mock",
+    "dev:mock:db": "vite --host --mode mockdb",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production"
+  },
+  "dependencies": {
+    "vue": "^3.2.20",
+    "@fe-portal/shared": "workspace:^1.0.0",
+    "md-editor-v3": "^2.11.2"
+  },
+  "devDependencies": {}
+}

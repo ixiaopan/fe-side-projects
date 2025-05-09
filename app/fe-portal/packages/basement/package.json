@@ -1,0 +1,19 @@
+{
+  "name": "@fe-portal/basement",
+  "version": "0.0.0",
+  "description": "Basement",
+  "devPort": 3006,
+  "publicPath": "/child/basement/",
+  "outDir": "../../dist/child/basement",
+  "scripts": {
+    "dev": "vite --host 3006",
+    "dev:mock": "vite --host --mode mock",
+    "dev:mock:db": "vite --host --mode mockdb",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production"
+  },
+  "dependencies": {
+    "@fe-portal/shared": "workspace:^1.0.0"
+  },
+  "devDependencies": {}
+}

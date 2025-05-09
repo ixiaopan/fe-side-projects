@@ -1,0 +1,10 @@
+{
+  "name": "@fe-portal/shared",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "pnpm run clean && tsc",
+    "clean": "rimraf ./dist"
+  },
+  "module": "src/index.ts"
+}

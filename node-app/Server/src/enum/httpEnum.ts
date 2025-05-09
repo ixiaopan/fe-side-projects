@@ -1,0 +1,5 @@
+export const RESPONSE_ENUM = {
+  SUCCESS: 200,
+  FAIL: 50000,
+  TOKEN_INVALID: 50001,
+}
